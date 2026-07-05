@@ -546,13 +546,97 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* ────────────────────────────────────────────────────────────
-   Responsive: on small screens stack differently
-   ──────────────────────────────────────────────────────────── */
-
 @media (max-width: 640px) {
-  .cinema-header__title { font-size: 1.3rem; }
-  .cinema-map-panel { width: 100%; border-radius: 12px 12px 0 0; }
-  .cinema-confirm { right: 0.75rem; bottom: 1rem; }
-  .cinema-seat-info { bottom: calc(48% + 0.5rem); left: 1rem; }
+  .cinema-header {
+    top: 0.75rem;
+    left: 1rem;
+    right: 6rem; /* Make room for price chip */
+  }
+  .cinema-header__title {
+    font-size: 1.25rem;
+  }
+  .cinema-header__eyebrow {
+    font-size: 0.6rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .cinema-price-chip {
+    top: 0.75rem;
+    right: 1rem;
+  }
+  .cinema-price-chip__value {
+    font-size: 1.35rem;
+  }
+  .cinema-price-chip__label {
+    font-size: 0.55rem;
+  }
+
+  .cinema-map-panel {
+    width: 95vw;
+    max-height: 48vh;
+    border-radius: 12px 12px 0 0;
+    padding: 0.5rem 0.6rem 0.6rem;
+  }
+  .cinema-map-panel__canvas-wrap {
+    max-height: 32vh;
+  }
+
+  .cinema-confirm {
+    right: 1rem;
+    bottom: 0.5rem;
+    z-index: 40;
+  }
+  .cinema-confirm__btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+  .cinema-summary-popup {
+    min-width: 250px;
+    max-width: 280px;
+    padding: 0.75rem;
+  }
+
+  .cinema-seat-info {
+    bottom: calc(48vh + 0.75rem);
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .cinema-seat-info__location {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  .cinema-seat-info__meta {
+    gap: 0.5rem;
+  }
+  .cinema-seat-info__status {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+  }
+  .cinema-seat-info__price {
+    font-size: 0.8rem;
+  }
+  .cinema-seat-info__dist {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-height: 600px) {
+  /* Handle landscape mode or short screens */
+  .cinema-map-panel {
+    max-height: 40vh;
+  }
+  .cinema-seat-info {
+    bottom: calc(40vh + 0.5rem);
+    padding: 0.25rem 0.5rem;
+  }
+  .cinema-seat-info__location {
+    font-size: 0.9rem;
+  }
 }
