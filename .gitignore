@@ -1,0 +1,87 @@
+﻿# ── Dependencies ─────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ── Build outputs ─────────────────────────────────────────────
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+
+# ── Environment & secrets (NEVER commit these) ────────────────
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.pem
+*.key
+*.cert
+secrets/
+
+# ── Logs ──────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Test / coverage ───────────────────────────────────────────
+coverage/
+*.lcov
+.nyc_output/
+
+# ── TypeScript cache ──────────────────────────────────────────
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# ── Vite / bundler cache ──────────────────────────────────────
+.vite/
+.parcel-cache/
+
+# ── OS generated files ────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Editor / IDE ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+.project
+.classpath
+.settings/
+
+# ── Runtime data ──────────────────────────────────────────────
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ── Optional / tool-specific ──────────────────────────────────
+.cache/
+.eslintcache
+.stylelintcache
+.temp/
+.tmp/
+tmp/
+
+# ── Gemini / AI assistant (local agent data) ──────────────────
+.gemini/

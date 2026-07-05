@@ -1,0 +1,62 @@
+{
+  "info": {
+    "name": "User Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get User (cache miss, first call)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/users/1"
+      }
+    },
+    {
+      "name": "Get User (cache hit, repeat call)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/users/1"
+      }
+    },
+    {
+      "name": "Get User - Not Found",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/users/999"
+      }
+    },
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"New User\",\n  \"email\": \"new.user@example.com\"\n}"
+        },
+        "url": "http://localhost:3000/users"
+      }
+    },
+    {
+      "name": "Cache Status",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/cache-status"
+      }
+    },
+    {
+      "name": "Clear Cache",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:3000/cache"
+      }
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/health"
+      }
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+﻿{
+  "venueId": "arena-01",
+  "name": "Metropolis Arena",
+  "map": { "width": 1024, "height": 768 },
+  "screen": { "x": 512, "y": 30, "width": 300 },
+  "sections": [
+    {
+      "id": "A",
+      "label": "Lower Bowl A",
+      "transform": { "x": 0, "y": 0, "scale": 1 },
+      "rows": [
+        {
+          "index": 1,
+          "seats": [
+            { "id": "A-1-01", "col": 1, "x": 80,  "y": 100, "priceTier": 1, "status": "available" },
+            { "id": "A-1-02", "col": 2, "x": 110, "y": 100, "priceTier": 1, "status": "reserved"  },
+            { "id": "A-1-03", "col": 3, "x": 140, "y": 100, "priceTier": 1, "status": "available" },
+            { "id": "A-1-04", "col": 4, "x": 170, "y": 100, "priceTier": 1, "status": "sold"      },
+            { "id": "A-1-05", "col": 5, "x": 200, "y": 100, "priceTier": 1, "status": "available" },
+            { "id": "A-1-06", "col": 6, "x": 230, "y": 100, "priceTier": 1, "status": "available" }
+          ]
+        },
+        {
+          "index": 2,
+          "seats": [
+            { "id": "A-2-01", "col": 1, "x": 80,  "y": 135, "priceTier": 2, "status": "available" },
+            { "id": "A-2-02", "col": 2, "x": 110, "y": 135, "priceTier": 2, "status": "available" },
+            { "id": "A-2-03", "col": 3, "x": 140, "y": 135, "priceTier": 2, "status": "held"      },
+            { "id": "A-2-04", "col": 4, "x": 170, "y": 135, "priceTier": 2, "status": "available" },
+            { "id": "A-2-05", "col": 5, "x": 200, "y": 135, "priceTier": 2, "status": "reserved"  },
+            { "id": "A-2-06", "col": 6, "x": 230, "y": 135, "priceTier": 2, "status": "available" }
+          ]
+        },
+        {
+          "index": 3,
+          "seats": [
+            { "id": "A-3-01", "col": 1, "x": 80,  "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "A-3-02", "col": 2, "x": 110, "y": 170, "priceTier": 3, "status": "sold"      },
+            { "id": "A-3-03", "col": 3, "x": 140, "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "A-3-04", "col": 4, "x": 170, "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "A-3-05", "col": 5, "x": 200, "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "A-3-06", "col": 6, "x": 230, "y": 170, "priceTier": 3, "status": "held"      }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "label": "Lower Bowl B",
+      "transform": { "x": 400, "y": 0, "scale": 1 },
+      "rows": [
+        {
+          "index": 1,
+          "seats": [
+            { "id": "B-1-01", "col": 1, "x": 80,  "y": 100, "priceTier": 1, "status": "available" },
+            { "id": "B-1-02", "col": 2, "x": 110, "y": 100, "priceTier": 1, "status": "available" },
+            { "id": "B-1-03", "col": 3, "x": 140, "y": 100, "priceTier": 1, "status": "reserved"  },
+            { "id": "B-1-04", "col": 4, "x": 170, "y": 100, "priceTier": 1, "status": "available" },
+            { "id": "B-1-05", "col": 5, "x": 200, "y": 100, "priceTier": 1, "status": "sold"      }
+          ]
+        },
+        {
+          "index": 2,
+          "seats": [
+            { "id": "B-2-01", "col": 1, "x": 80,  "y": 135, "priceTier": 2, "status": "available" },
+            { "id": "B-2-02", "col": 2, "x": 110, "y": 135, "priceTier": 2, "status": "held"      },
+            { "id": "B-2-03", "col": 3, "x": 140, "y": 135, "priceTier": 2, "status": "available" },
+            { "id": "B-2-04", "col": 4, "x": 170, "y": 135, "priceTier": 2, "status": "available" },
+            { "id": "B-2-05", "col": 5, "x": 200, "y": 135, "priceTier": 2, "status": "reserved"  }
+          ]
+        },
+        {
+          "index": 3,
+          "seats": [
+            { "id": "B-3-01", "col": 1, "x": 80,  "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "B-3-02", "col": 2, "x": 110, "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "B-3-03", "col": 3, "x": 140, "y": 170, "priceTier": 3, "status": "sold"      },
+            { "id": "B-3-04", "col": 4, "x": 170, "y": 170, "priceTier": 3, "status": "available" },
+            { "id": "B-3-05", "col": 5, "x": 200, "y": 170, "priceTier": 3, "status": "available" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "label": "Upper Bowl C",
+      "transform": { "x": 100, "y": 250, "scale": 1 },
+      "rows": [
+        {
+          "index": 1,
+          "seats": [
+            { "id": "C-1-01", "col": 1, "x": 80,  "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "C-1-02", "col": 2, "x": 110, "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "C-1-03", "col": 3, "x": 140, "y": 100, "priceTier": 4, "status": "reserved"  },
+            { "id": "C-1-04", "col": 4, "x": 170, "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "C-1-05", "col": 5, "x": 200, "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "C-1-06", "col": 6, "x": 230, "y": 100, "priceTier": 4, "status": "sold"      },
+            { "id": "C-1-07", "col": 7, "x": 260, "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "C-1-08", "col": 8, "x": 290, "y": 100, "priceTier": 4, "status": "available" }
+          ]
+        },
+        {
+          "index": 2,
+          "seats": [
+            { "id": "C-2-01", "col": 1, "x": 80,  "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "C-2-02", "col": 2, "x": 110, "y": 135, "priceTier": 5, "status": "held"      },
+            { "id": "C-2-03", "col": 3, "x": 140, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "C-2-04", "col": 4, "x": 170, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "C-2-05", "col": 5, "x": 200, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "C-2-06", "col": 6, "x": 230, "y": 135, "priceTier": 5, "status": "reserved"  },
+            { "id": "C-2-07", "col": 7, "x": 260, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "C-2-08", "col": 8, "x": 290, "y": 135, "priceTier": 5, "status": "sold"      }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "label": "Upper Bowl D",
+      "transform": { "x": 500, "y": 250, "scale": 1 },
+      "rows": [
+        {
+          "index": 1,
+          "seats": [
+            { "id": "D-1-01", "col": 1, "x": 80,  "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "D-1-02", "col": 2, "x": 110, "y": 100, "priceTier": 4, "status": "reserved"  },
+            { "id": "D-1-03", "col": 3, "x": 140, "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "D-1-04", "col": 4, "x": 170, "y": 100, "priceTier": 4, "status": "available" },
+            { "id": "D-1-05", "col": 5, "x": 200, "y": 100, "priceTier": 4, "status": "sold"      },
+            { "id": "D-1-06", "col": 6, "x": 230, "y": 100, "priceTier": 4, "status": "available" }
+          ]
+        },
+        {
+          "index": 2,
+          "seats": [
+            { "id": "D-2-01", "col": 1, "x": 80,  "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "D-2-02", "col": 2, "x": 110, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "D-2-03", "col": 3, "x": 140, "y": 135, "priceTier": 5, "status": "held"      },
+            { "id": "D-2-04", "col": 4, "x": 170, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "D-2-05", "col": 5, "x": 200, "y": 135, "priceTier": 5, "status": "available" },
+            { "id": "D-2-06", "col": 6, "x": 230, "y": 135, "priceTier": 5, "status": "reserved"  }
+          ]
+        }
+      ]
+    }
+  ]
+}
