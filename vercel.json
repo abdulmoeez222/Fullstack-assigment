@@ -1,6 +1,0 @@
-﻿{
-  "buildCommand": "cd seating-map && npm install && npm run build",
-  "outputDirectory": "seating-map/dist",
-  "installCommand": "echo skip",
-  "framework": null
-}
