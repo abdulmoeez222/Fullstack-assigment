@@ -231,8 +231,8 @@ export default function App() {
             flexDirection: "column",
             justifyContent: "flex-end",
             alignItems: "center",
-            opacity: viewSeat ? viewTransform.t * 0.92 : 0,
-            transform: `translateY(${viewSeat ? (1 - viewTransform.t) * 140 : 140}px)`,
+            opacity: 0.88,
+            transform: `translateY(${viewSeat ? (1 - viewTransform.t) * 120 : 60}px)`,
             transition: "opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1), transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
