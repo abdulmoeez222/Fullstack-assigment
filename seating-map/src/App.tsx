@@ -27,41 +27,39 @@ function clamp(v: number, min: number, max: number) {
 function computeSeatView(
   seat: FlatSeat,
   screenX: number,
-  screenY: number,
-  mapWidth: number,
-  mapHeight: number
+  mapWidth: number
 ) {
+  // Horizontal offset relative to center stage: -1 (far left) to +1 (far right)
   const dx = seat.absX - screenX;
-  const dy = seat.absY - screenY;
-  
-  // Elevation Z increases as rows go back, simulating a stadium slope.
-  const z = dy * 0.45;
-  
-  // Calculate 3D hypotenuse distance
-  const dist3D = Math.sqrt(dx * dx + dy * dy + z * z);
-  
-  // Dynamically compute max possible 3D distance to normalize coordinates
-  const maxDx = mapWidth / 2;
-  const maxDy = mapHeight - screenY;
-  const maxDz = maxDy * 0.45;
-  const maxDist = Math.sqrt(maxDx * maxDx + maxDy * maxDy + maxDz * maxDz);
-  
-  const nDist = clamp(dist3D / maxDist, 0, 1);
-  
-  // Horizontal offset: -1 (far left) to +1 (far right)
   const nx = clamp(dx / (mapWidth / 2), -1, 1);
+
+  // Compute global row depth from front to back of arena (1 to 50)
+  const sectionLetter = (seat.sectionId ?? "A").toUpperCase();
+  const sectionNum = sectionLetter.charCodeAt(0) - 65; // A=0, B=1...
+  const sectionRowIndex = Math.max(0, Math.floor(sectionNum / 2)); // 0 to 4
+  const globalRow = sectionRowIndex * 10 + seat.rowIndex; // 1 to 50
   
-  // Scale (zoom): Front rows zoom in (~1.8x), back rows zoom out (~0.55x) for full view
-  const scale = 1.85 - nDist * 1.30;
-  
-  // Pan X: Shifting side views based on angle, stronger in front rows
-  const panX = -nx * 18 * (1 - nDist * 0.4);
-  
-  // Pan Y (vertical perspective):
-  // - Front rows (low Y): Negative panY (looks up from bottom, screen high in view)
-  // - Back rows (high Y): Positive panY (looks down from above, top view)
-  const panY = -12 + nDist * 26;
-  
+  // Normalized row depth (0 = front row, 1 = back row)
+  const t = clamp((globalRow - 1) / 49, 0, 1);
+
+  // Hypotenuse distance:
+  // Front row is at 5m depth. Horizontal distance increases by 1.5m per row.
+  // Elevation height increases by 0.6m per row.
+  const dHoriz = 5 + (globalRow - 1) * 1.5;
+  const hElevation = (globalRow - 1) * 0.6;
+  const dist3D = Math.sqrt(dHoriz * dHoriz + hElevation * hElevation);
+
+  // Scale (zoom): Front row is zoomed in (1.9x), back row is zoomed out (0.55x)
+  const scale = 1.9 - t * 1.35;
+
+  // Pan Y (elevation angle):
+  // Front rows look up (negative panY), back rows look down from above (positive panY)
+  const panY = -12 + t * 27;
+
+  // Pan X: Side seats look at stage from an angle.
+  // The side perspective is compressed as you move further back (lower t).
+  const panX = -nx * 18 * (1 - t * 0.45);
+
   return {
     scale,
     panX,
@@ -156,13 +154,12 @@ export default function App() {
 
   // Screen position
   const screenX = venue?.screen?.x ?? (venue ? venue.map.width / 2 : 200);
-  const screenY = venue?.screen?.y ?? 15;
 
   // Compute the camera transform
   const viewTransform = useMemo(() => {
     if (!viewSeat || !venue) return { scale: 1, panX: 0, panY: 0, dist: 0 };
-    return computeSeatView(viewSeat, screenX, screenY, venue.map.width, venue.map.height);
-  }, [viewSeat, screenX, screenY, venue]);
+    return computeSeatView(viewSeat, screenX, venue.map.width);
+  }, [viewSeat, screenX, venue]);
 
   if (error) {
     return (
