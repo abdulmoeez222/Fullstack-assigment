@@ -21,7 +21,7 @@ const STATUS_COLORS: Record<SeatStatus | "selected", string> = {
 };
 
 const SEAT_RADIUS = 5;
-const SEAT_SIZE = 13;
+const SEAT_SIZE = 16;
 const FOCUS_RING_COLOR = "rgba(255,255,255,0.9)";
 
 function isSelectable(status: SeatStatus): boolean {

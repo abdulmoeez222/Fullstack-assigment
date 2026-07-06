@@ -265,8 +265,8 @@ html, body, #root {
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
-  width: clamp(320px, 48vw, 560px);
-  max-height: 42vh;
+  width: clamp(320px, 85vw, 1060px);
+  max-height: 48vh;
   overflow-y: auto;
   padding: 0.7rem 0.9rem 0.8rem;
   background: rgba(10, 10, 20, 0.82);
@@ -277,14 +277,49 @@ html, body, #root {
   box-shadow:
     0 -4px 40px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.08);
+  /* Smooth collapse transition */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinema-map-panel--collapsed {
+  transform: translate(-50%, calc(100% - 36px));
+  overflow: hidden; /* Hide scrollbar when collapsed */
 }
 
 .cinema-map-panel__header {
+  position: relative; /* to anchor the toggle button */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 0.6rem;
+}
+
+.cinema-map-panel__toggle-btn {
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a5b4fc;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.65rem;
+  line-height: 1;
+  transition: background-color 0.2s, color 0.2s;
+  user-select: none;
+  z-index: 5;
+}
+
+.cinema-map-panel__toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
 }
 
 .cinema-map-panel__title,

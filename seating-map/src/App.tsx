@@ -33,20 +33,20 @@ function computeSeatView(
   const dx = seat.absX - screenX;
   const nx = clamp(dx / (mapWidth / 2), -1, 1);
 
-  // Compute global row depth from front to back of arena (1 to 50)
+  // Compute global row depth from front to back of arena (1 to 20)
   const sectionLetter = (seat.sectionId ?? "A").toUpperCase();
   const sectionNum = sectionLetter.charCodeAt(0) - 65; // A=0, B=1...
-  const sectionRowIndex = Math.max(0, Math.floor(sectionNum / 2)); // 0 to 4
-  const globalRow = sectionRowIndex * 10 + seat.rowIndex; // 1 to 50
+  const sectionRowIndex = Math.max(0, Math.floor(sectionNum / 5)); // A-E = 0, F-J = 1
+  const globalRow = sectionRowIndex * 10 + seat.rowIndex; // 1 to 20
   
   // Normalized row depth (0 = front row, 1 = back row)
-  const t = clamp((globalRow - 1) / 49, 0, 1);
+  const t = clamp((globalRow - 1) / 19, 0, 1);
 
   // Hypotenuse distance:
-  // Front row is at 5m depth. Horizontal distance increases by 1.5m per row.
-  // Elevation height increases by 0.6m per row.
-  const dHoriz = 5 + (globalRow - 1) * 1.5;
-  const hElevation = (globalRow - 1) * 0.6;
+  // Front row is at 5m depth. Horizontal distance increases by 2.5m per row.
+  // Elevation height increases by 0.8m per row.
+  const dHoriz = 5 + (globalRow - 1) * 2.5;
+  const hElevation = (globalRow - 1) * 0.8;
   const dist3D = Math.sqrt(dHoriz * dHoriz + hElevation * hElevation);
 
   // Scale (zoom): Front row (top seats) is at 1.0 (default view). Moving to back rows zooms out to 0.55.
@@ -78,6 +78,7 @@ export default function App() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
+  const [isPanelCollapsed, setIsPanelCollapsed] = useState(false);
 
   const seats = useMemo(() => (venue ? flattenVenue(venue) : []), [venue]);
   const seatsById = useMemo(() => new Map(seats.map((s) => [s.id, s])), [seats]);
@@ -259,11 +260,19 @@ export default function App() {
       </div>
 
       {/* ── Floating seat map panel (bottom-center) ── */}
-      <div className="cinema-map-panel">
+      <div className={`cinema-map-panel ${isPanelCollapsed ? "cinema-map-panel--collapsed" : ""}`}>
         <div className="cinema-map-panel__header">
           <span className="cinema-map-panel__title">STAGE</span>
           <div className="cinema-map-panel__stage-indicator" />
           <span className="cinema-map-panel__subtitle">Choose a seat</span>
+          <button
+            type="button"
+            className="cinema-map-panel__toggle-btn"
+            onClick={() => setIsPanelCollapsed((prev) => !prev)}
+            aria-label={isPanelCollapsed ? "Expand seating map" : "Collapse seating map"}
+          >
+            {isPanelCollapsed ? "▲" : "▼"}
+          </button>
         </div>
 
         <div className="cinema-map-panel__canvas-wrap">
