@@ -64,6 +64,7 @@ function computeSeatView(
     scale,
     panX,
     panY,
+    t,
     dist: Math.round(dist3D),
   };
 }
@@ -158,7 +159,7 @@ export default function App() {
 
   // Compute the camera transform
   const viewTransform = useMemo(() => {
-    if (!viewSeat || !venue) return { scale: 1, panX: 0, panY: 0, dist: 0 };
+    if (!viewSeat || !venue) return { scale: 1, panX: 0, panY: 0, t: 0, dist: 0 };
     return computeSeatView(viewSeat, screenX, venue.map.width);
   }, [viewSeat, screenX, venue]);
 
@@ -214,6 +215,91 @@ export default function App() {
 
         {/* Bottom fade so the seat map panel blends in */}
         <div className="cinema-bg__bottom-fade" />
+
+        {/* ── Foreground seats simulating 3D view perspective ── */}
+        <div
+          className="cinema-fg-seats"
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            right: "0",
+            height: "220px",
+            zIndex: 10,
+            pointerEvents: "none",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            opacity: viewSeat ? viewTransform.t * 0.92 : 0,
+            transform: `translateY(${viewSeat ? (1 - viewTransform.t) * 140 : 140}px)`,
+            transition: "opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1), transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          {/* Row 1 (Further row, more blurred, smaller) */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "24px",
+              width: "140%",
+              transform: `translateX(${viewTransform.panX * 1.5}%)`,
+              transition: "transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)",
+              marginBottom: "-10px",
+            }}
+          >
+            {Array.from({ length: 14 }).map((_, i) => (
+              <svg
+                key={`fg-r1-${i}`}
+                viewBox="0 0 100 100"
+                style={{
+                  width: "42px",
+                  height: "42px",
+                  fill: "#0a0a14",
+                  stroke: "rgba(99, 102, 241, 0.15)",
+                  strokeWidth: "2px",
+                  filter: "blur(2px)",
+                }}
+              >
+                <path d="M86.667,40h-10v13.333l0.003,0.004h-0.003c0,3.682-2.985,6.666-6.667,6.666V60H30c-3.682,0-6.667-2.985-6.667-6.667V40h-10v6.667h3.334v6.666c0,7.363,5.97,13.334,13.333,13.334v6.666h16.667v10h-10V90h26.666v-6.667h-10v-10H70V66.67c7.363,0,13.333-5.97,13.333-13.333H83.33l0.003-0.004v-6.666h3.334V40z"/>
+                <path d="M63.333,16.667h-1.666V20c0,4.597-3.737,8.333-8.334,8.333h-6.666c-4.597,0-8.334-3.736-8.334-8.333v-3.333h-1.666c-3.682,0-6.667,2.982-6.667,6.667v30h40v-30C70,19.648,67.019,16.667,63.333,16.667z"/>
+                <path d="M56.667,20c0,1.833-1.501,3.333-3.334,3.333h-6.666c-1.833,0-3.334-1.501-3.334-3.333v-6.667c0-1.833,1.501-3.333,3.334-3.333h6.666c1.833,0,3.334,1.5,3.334,3.333V20z"/>
+              </svg>
+            ))}
+          </div>
+
+          {/* Row 2 (Closer row, less blurred, larger, offset) */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "36px",
+              width: "160%",
+              transform: `translateX(${viewTransform.panX * 2.2}%)`,
+              transition: "transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)",
+              marginBottom: "-20px",
+            }}
+          >
+            {Array.from({ length: 11 }).map((_, i) => (
+              <svg
+                key={`fg-r2-${i}`}
+                viewBox="0 0 100 100"
+                style={{
+                  width: "56px",
+                  height: "56px",
+                  fill: "#05050a",
+                  stroke: "rgba(99, 102, 241, 0.12)",
+                  strokeWidth: "1.5px",
+                  filter: "blur(3.5px)",
+                }}
+              >
+                <path d="M86.667,40h-10v13.333l0.003,0.004h-0.003c0,3.682-2.985,6.666-6.667,6.666V60H30c-3.682,0-6.667-2.985-6.667-6.667V40h-10v6.667h3.334v6.666c0,7.363,5.97,13.334,13.333,13.334v6.666h16.667v10h-10V90h26.666v-6.667h-10v-10H70V66.67c7.363,0,13.333-5.97,13.333-13.333H83.33l0.003-0.004v-6.666h3.334V40z"/>
+                <path d="M63.333,16.667h-1.666V20c0,4.597-3.737,8.333-8.334,8.333h-6.666c-4.597,0-8.334-3.736-8.334-8.333v-3.333h-1.666c-3.682,0-6.667,2.982-6.667,6.667v30h40v-30C70,19.648,67.019,16.667,63.333,16.667z"/>
+                <path d="M56.667,20c0,1.833-1.501,3.333-3.334,3.333h-6.666c-1.833,0-3.334-1.501-3.334-3.333v-6.667c0-1.833,1.501-3.333,3.334-3.333h6.666c1.833,0,3.334,1.5,3.334,3.333V20z"/>
+              </svg>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── Top-left: venue/event info ── */}
