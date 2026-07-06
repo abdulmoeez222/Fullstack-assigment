@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { flattenVenue, loadVenue } from "./data/loadVenue";
 import type { FlatSeat, Venue } from "./types/venue";
 import { SeatMapCanvas } from "./components/SeatMap/SeatMapCanvas";
+import { FpsCounter } from "./components/SeatMap/FpsCounter";
 import { SelectionSummary } from "./components/SelectionSummary";
 import {
   initialSelectionState,
@@ -30,27 +31,43 @@ function computeSeatView(
   mapWidth: number,
   mapHeight: number
 ) {
-  /**
-   * Primary driver: vertical depth — how far back the seat is from the
-   * screen (0 = at the screen, 1 = bottom edge of the map).
-   * This correctly represents "how far back you're sitting" regardless of
-   * left/right position, and gives a wider spread than the full diagonal.
-   */
-  const ny = clamp((seat.absY - screenY) / (mapHeight - screenY), 0, 1);
-
-  // Horizontal offset: -1 (far left) → +1 (far right) relative to centre stage
-  const nx = clamp((seat.absX - screenX) / (mapWidth / 2), -1, 1);
-
-  // Scale: 1.6× front row (screen fills view) → 0.45× far back (whole screen visible)
-  const scale = 1.6 - ny * 2.2;
-
-  // Pan: side seats shift the image left/right; back seats pull image up slightly
-  const panX = -nx * 18 * (1 - ny * 0.3); // percent — stronger for front/side seats
-  const panY = -ny * 6;                    // percent — image rises as you move back
-
-  const dist = Math.round(Math.hypot(seat.absX - screenX, seat.absY - screenY));
-  return { scale, panX, panY, dist };
-
+  const dx = seat.absX - screenX;
+  const dy = seat.absY - screenY;
+  
+  // Elevation Z increases as rows go back, simulating a stadium slope.
+  const z = dy * 0.45;
+  
+  // Calculate 3D hypotenuse distance
+  const dist3D = Math.sqrt(dx * dx + dy * dy + z * z);
+  
+  // Dynamically compute max possible 3D distance to normalize coordinates
+  const maxDx = mapWidth / 2;
+  const maxDy = mapHeight - screenY;
+  const maxDz = maxDy * 0.45;
+  const maxDist = Math.sqrt(maxDx * maxDx + maxDy * maxDy + maxDz * maxDz);
+  
+  const nDist = clamp(dist3D / maxDist, 0, 1);
+  
+  // Horizontal offset: -1 (far left) to +1 (far right)
+  const nx = clamp(dx / (mapWidth / 2), -1, 1);
+  
+  // Scale (zoom): Front rows zoom in (~1.8x), back rows zoom out (~0.55x) for full view
+  const scale = 1.85 - nDist * 1.30;
+  
+  // Pan X: Shifting side views based on angle, stronger in front rows
+  const panX = -nx * 18 * (1 - nDist * 0.4);
+  
+  // Pan Y (vertical perspective):
+  // - Front rows (low Y): Negative panY (looks up from bottom, screen high in view)
+  // - Back rows (high Y): Positive panY (looks down from above, top view)
+  const panY = -12 + nDist * 26;
+  
+  return {
+    scale,
+    panX,
+    panY,
+    dist: Math.round(dist3D),
+  };
 }
 
 export default function App() {
@@ -297,6 +314,9 @@ export default function App() {
           </>
         )}
       </div>
+
+      {/* ── FPS Counter HUD ── */}
+      <FpsCounter />
     </div>
   );
 }
