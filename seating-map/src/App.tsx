@@ -49,16 +49,16 @@ function computeSeatView(
   const hElevation = (globalRow - 1) * 0.6;
   const dist3D = Math.sqrt(dHoriz * dHoriz + hElevation * hElevation);
 
-  // Scale (zoom): Back row starts exactly at 1.0 (default view), zooming in to 1.35 for front rows.
-  const scale = 1.35 - t * 0.35;
+  // Scale (zoom): Front row (top seats) is at 1.0 (default view). Moving to back rows zooms out to 0.55.
+  const scale = 1.0 - t * 0.45;
 
   // Pan Y (elevation angle):
-  // Front row looks up slightly (panY = -6), back row is level (panY = 0) matching default view.
-  const panY = -6 + t * 6;
+  // Front row is at level view (panY = 0). Moving to back rows looks down from above (panY = 12).
+  const panY = t * 12;
 
   // Pan X: Side seats look at stage from an angle.
   // The side perspective is compressed as you move further back (lower t).
-  const panX = -nx * 12 * (1 - t * 0.4);
+  const panX = -nx * 15 * (1 - t * 0.45);
 
   return {
     scale,
